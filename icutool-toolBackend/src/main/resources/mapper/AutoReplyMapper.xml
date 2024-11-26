@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.icutool.mapper.AutoReplyMapper">
+  <resultMap id="BaseResultMap" type="cn.icutool.domain.AutoReply">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="question" jdbcType="VARCHAR" property="question" />
+    <result column="answer" jdbcType="LONGVARCHAR" property="answer" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="del_flag" jdbcType="BIT" property="delFlag" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, question, answer, create_time, update_time, del_flag
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from auto_reply
+    where id = #{id,jdbcType=INTEGER} and del_flag = 0
+  </select>
+
+  <select id="selectAll" resultType="cn.icutool.domain.AutoReply">
+    select id, question, answer
+    from auto_reply
+    where del_flag = 0
+  </select>
+    <select id="selectByQuestion" resultMap="BaseResultMap">
+      select id, question, answer
+      from auto_reply
+      where question = #{question,jdbcType=VARCHAR} and del_flag = 0
+      limit 1
+    </select>
+  <select id="queryPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from auto_reply
+    where del_flag = 0
+    <if test="keyword != null and keyword != ''">
+      and question like concat('%',#{keyword},'%')
+    </if>
+    limit #{pageNum},#{pageSize}
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(1) from auto_reply
+    where del_flag = 0
+    <if test="keyword != null and keyword != ''">
+      and question like concat('%',#{keyword},'%')
+    </if>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    update auto_reply set del_flag = 1
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.icutool.domain.AutoReply" useGeneratedKeys="true">
+    insert into auto_reply (question, answer, create_time,
+      update_time, del_flag)
+    values (#{question,jdbcType=VARCHAR}, #{answer,jdbcType=LONGVARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=BIT})
+  </insert>
+
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.icutool.domain.AutoReply" useGeneratedKeys="true">
+    insert into auto_reply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="question != null">
+        question,
+      </if>
+      <if test="answer != null">
+        answer,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="question != null">
+        #{question,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="cn.icutool.domain.AutoReply">
+    update auto_reply
+    <set>
+      <if test="question != null">
+        question = #{question,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        answer = #{answer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="cn.icutool.domain.AutoReply">
+    update auto_reply
+    set question = #{question,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=LONGVARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="removeByIds">
+    update auto_reply set del_flag = 1
+    where id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+</mapper>
