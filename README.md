@@ -18,9 +18,12 @@
     <a href="https://icutool.cn"><img src="https://img.shields.io/badge/演示地址-icutool.cn-blueviolet.svg?style=plasticr"></a>
 </div>
 
-### icutool-swarm
+## icutool-swarm
 ### 功能介绍
 支持多端消息同步，支持接入微信公众号,当接收到新消息,网页实现自动刷新。实现更加方便便捷的消息同步,轻松解决跨平台同步问题
+
+### 功能亮点
+长链websocket实时推送,毫秒级内网IP地理信息获取,消息内容非对称加密,周报根据模板自动导出excel...
 
 ### 架构介绍
 微服务架构，采用nacos作为配置中心，netty用作异步websocket网络框架，使用minio进行对象存储。数据库使用mysql，缓存方面使用了多级缓存，采用caffeine作为一级缓存，redis作为二级缓存。采用Hibernate-validator接口校验框架，采用Hutool工具类库，采用lombok简化代码
