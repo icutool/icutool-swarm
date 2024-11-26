@@ -26,7 +26,7 @@
 微服务架构，采用nacos作为配置中心，netty用作异步websocket网络框架，使用minio进行对象存储。数据库使用mysql，缓存方面使用了多级缓存，采用caffeine作为一级缓存，redis作为二级缓存。采用Hibernate-validator接口校验框架，采用Hutool工具类库，采用lombok简化代码
 
 ### 演示
-<img src="http://d.icutool.cn/icutool/icutool.gif" width="1080" />
+<img src="https://gitee.com/plusboy/icutool-swarm/raw/master/icutool.gif" width="800" />
 
 ### 后端技术
 
