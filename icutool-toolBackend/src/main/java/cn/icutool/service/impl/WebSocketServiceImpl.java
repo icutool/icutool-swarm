@@ -199,23 +199,6 @@ public class WebSocketServiceImpl implements WebSocketService {
         updateChannelUserInfo(channel, uid, ip);
     }
 
-    @Override
-    public void handleBindCodeReq(Channel channel, WSBaseReq wsBaseReq) {
-        log.info("handleBindCodeReq: {}", wsBaseReq);
-        try {
-            //确保是数字code
-            Integer.valueOf(wsBaseReq.getData());
-            if (wsBaseReq.getData().startsWith("00")) {
-                WAIT_LOGIN_MAP.put(wsBaseReq.getData(), channel);
-            } else {
-                sendMsg(channel, WSAdapter.buildStrResp(WSRespTypeEnum.ERROR, "code非法"));
-            }
-        } catch (Exception e) {
-            log.error("handleBindCodeReq: {}", e.getMessage(), e);
-            sendMsg(channel, WSAdapter.buildStrResp(WSRespTypeEnum.ERROR, "code非法"));
-        }
-    }
-
 
     private void sendMsg(Channel channel, WSBaseResp<?> wsBaseResp) {
         channel.writeAndFlush(new TextWebSocketFrame(JSONUtil.toJsonStr(wsBaseResp)));

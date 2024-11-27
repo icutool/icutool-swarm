@@ -28,5 +28,4 @@ public interface WebSocketService {
      */
     void handleTokenLogin(Channel channel, WSBaseReq wsBaseReq);
 
-    void handleBindCodeReq(Channel channel, WSBaseReq wsBaseReq);
 }
