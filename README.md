@@ -48,9 +48,9 @@
 |       Hutool        | Java工具类库                      | https://github.com/looly/hutool                              |
 |     Swagger-UI      | API文档生成工具                     | https://github.com/swagger-api/swagger-ui                    |
 | Hibernate-validator | 接口校验框架                        | [hibernate.org/validator/](hibernate.org/validator/)         |
-|        minio        | 自建对象存储                        | https://github.com/minio/minio                               |
-|        nacos        | 注册中心                          | https://nacos.io/                               |
-|        netty        | 网络应用程序框架                          | https://github.com/netty/netty                              |
+|        Minio        | 自建对象存储                        | https://github.com/minio/minio                               |
+|        Nacos        | 注册中心                          | https://nacos.io/                               |
+|        Netty        | 网络应用程序框架                          | https://github.com/netty/netty                              |
 
 
 
