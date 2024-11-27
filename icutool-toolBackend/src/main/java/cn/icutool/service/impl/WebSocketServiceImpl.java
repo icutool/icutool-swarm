@@ -157,6 +157,7 @@ public class WebSocketServiceImpl implements WebSocketService {
         ONLINE_UID_MAP.put(uid, channels);
         //更新用户IP信息
         loginService.UpdateIp(uid, ip);
+        NettyUtil.setAttr(channel, NettyUtil.UID, uid);
         sendMsg(channel, WSAdapter.buildTData(WSRespTypeEnum.LOGIN_SUCCESS, wsUserInfoBO));
     }
 
