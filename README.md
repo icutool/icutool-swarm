@@ -15,7 +15,8 @@
 <div align="center">
     <a href="#公众号"><img src="https://img.shields.io/badge/公众号-筱涛博客-blue.svg?style=plasticr"></a>
     <a href="https://gitee.com/plusboy/icutool-web-vue"><img src="https://img.shields.io/badge/前端-项目地址-blueviolet.svg?style=plasticr"></a>
-    <a href="https://icutool.cn"><img src="https://img.shields.io/badge/演示地址-icutool.cn-blueviolet.svg?style=plasticr"></a>
+    <a href="https://icutool.cn"><img src="https://img.shields.io/badge/演示地址-icutool.cn-orange.svg?style=plasticr"></a>
+    <a href="https://tool.icutool.cn"><img src="https://img.shields.io/badge/友联-程序员工具箱-green.svg?style=plasticr"></a>
 </div>
 
 ## icutool-swarm
