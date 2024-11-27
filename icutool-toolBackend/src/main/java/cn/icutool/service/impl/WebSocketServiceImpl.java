@@ -93,7 +93,6 @@ public class WebSocketServiceImpl implements WebSocketService {
             sendMsg(channel, WSAdapter.buildTData(WSRespTypeEnum.TOKEN_CODE, wsAuthorize));
             WSUserInfoBO wsUserInfoBO = WSUserInfoBO.builder()
                     .userId(user.getId())
-                    .token(token)
                     .expireTime(LocalDateTime.now().plus(ApplicationConst.JWT_EXPIRE, ChronoUnit.MILLIS))
                     .build();
             ONLINE_WS_MAP.put(channel, wsUserInfoBO);
@@ -104,6 +103,8 @@ public class WebSocketServiceImpl implements WebSocketService {
             channels.add(channel);
             ONLINE_UID_MAP.put(user.getId(), channels);
             WAIT_LOGIN_MAP.invalidate(code);
+            NettyUtil.setAttr(channel, NettyUtil.UID, user.getId());
+            NettyUtil.setAttr(channel, NettyUtil.TOKEN, token);
         }
     }
 
