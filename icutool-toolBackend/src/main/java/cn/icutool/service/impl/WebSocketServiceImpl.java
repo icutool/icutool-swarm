@@ -88,14 +88,13 @@ public class WebSocketServiceImpl implements WebSocketService {
         String token = result.getString("token");
         Channel channel = WAIT_LOGIN_MAP.getIfPresent(code);
         if (!Objects.isNull(channel)) {
-            WSAuthorize wsAuthorize = new WSAuthorize();
-            wsAuthorize.setToken(token);
-            sendMsg(channel, WSAdapter.buildTData(WSRespTypeEnum.TOKEN_CODE, wsAuthorize));
             WSUserInfoBO wsUserInfoBO = WSUserInfoBO.builder()
                     .userId(user.getId())
                     .expireTime(LocalDateTime.now().plus(ApplicationConst.JWT_EXPIRE, ChronoUnit.MILLIS))
                     .build();
             ONLINE_WS_MAP.put(channel, wsUserInfoBO);
+            wsUserInfoBO.setToken(token);
+            sendMsg(channel, WSAdapter.buildTData(WSRespTypeEnum.TOKEN_CODE, wsUserInfoBO));
             CopyOnWriteArrayList<Channel> channels = ONLINE_UID_MAP.get(user.getId());
             if (channels == null) {
                 channels = new CopyOnWriteArrayList<>();
