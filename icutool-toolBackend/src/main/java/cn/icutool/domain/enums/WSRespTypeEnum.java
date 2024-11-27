@@ -20,6 +20,7 @@ public enum WSRespTypeEnum {
     LOGIN_ERROR(53,"认证失败", String.class),
     LOGIN_SUCCESS(54,"认证成功", WSUserInfoBO.class),
     NEW_MSG(55, "新消息", String.class),
+    ERROR(56, "error", String.class),
     ;
 
     private final Integer type;

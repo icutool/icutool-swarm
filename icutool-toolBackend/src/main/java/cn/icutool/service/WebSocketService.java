@@ -27,4 +27,6 @@ public interface WebSocketService {
      * @param channel
      */
     void handleTokenLogin(Channel channel, WSBaseReq wsBaseReq);
+
+    void handleBindCodeReq(Channel channel, WSBaseReq wsBaseReq);
 }

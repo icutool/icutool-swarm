@@ -110,6 +110,9 @@ public class NettyWebSocketServerHandler extends SimpleChannelInboundHandler<Tex
             case LOGOUT:
                 this.webSocketService.removed(ctx.channel());
                 break;
+            case BIND_CODE:
+                this.webSocketService.handleBindCodeReq(ctx.channel(), wsBaseReq);
+                break;
             case HEARTBEAT:
                 Long uid = NettyUtil.getAttr(ctx.channel(), NettyUtil.UID);
                 JSONObject info = new JSONObject();

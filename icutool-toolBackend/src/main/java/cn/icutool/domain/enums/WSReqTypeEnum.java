@@ -16,6 +16,7 @@ public enum WSReqTypeEnum {
     HEARTBEAT(2, "心跳包"),
     AUTHORIZE(3, "登录认证"),
     TEST(4, "测试使用"),
+    BIND_CODE(5, "绑定验证码和channel"),
     ;
 
     private final Integer type;
