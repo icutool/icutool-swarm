@@ -34,6 +34,7 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -175,25 +176,38 @@ public class MessageBrokerServiceImpl implements MessageBrokerService {
             return new TextBuilder().build("您不是该功能的用户,请访问网站进行注册!\nhttps://icutool.cn", wxMessage, weixinService);
         }
         String[] split = content.split(" ");
-        if (split.length != 4){
-            return new TextBuilder().build("获取消息 请参考格式[list 页码 条数 关键词] \n例如 list 1 10 无", wxMessage, weixinService);
+        if (split.length != 4 && split.length != 3){
+            return new TextBuilder().build("获取消息 请参考格式[list 页码 条数 关键词] \n例如 list 1 10 关键词 或者 list 1 10", wxMessage, weixinService);
         }
-        int pageNum = Integer.parseInt(split[1]);
-        pageNum = (pageNum -1)* Integer.parseInt(split[2]);
-        int pageSize = Integer.parseInt(split[2]);
-        if (pageNum <0 || pageSize<0 || pageSize>20) {
-            return new TextBuilder().build("页码或条数不合法 页码条数需要大于0 条数需要小于20", wxMessage, weixinService);
+        try {
+            int pageNum = Integer.parseInt(split[1]);
+            pageNum = (pageNum -1)* Integer.parseInt(split[2]);
+            int pageSize = Integer.parseInt(split[2]);
+            if (pageNum <0 || pageSize<0 || pageSize>20) {
+                return new TextBuilder().build("页码或条数不合法 页码条数需要大于0 条数需要小于20", wxMessage, weixinService);
+            }
+            String keyword = null;
+            if (split.length == 4) {
+                keyword = split[3];
+            }
+            int count = messageBrokerDao.count(keyword, user.getId());
+            List<MessageBroker> messageBrokerList = messageBrokerDao.queryPage(pageNum, pageSize, keyword, user.getId());
+            StringBuffer sb = new StringBuffer();
+            sb.append(String.format("总条数：%d 总页数：%d",count,(int) Math.ceil((double) count / pageSize))).append("\n");
+            AtomicInteger line = new AtomicInteger(1);
+            messageBrokerList.forEach(messageBroker -> {
+                if (Objects.equals(messageBroker.getMsgType(), MessageTypeEnum.IMAGE.getCode())) {
+                    String imgUrlContent = minioUtil.getUrl(messageBroker.getContent(),1, TimeUnit.HOURS);
+                    sb.append(line.getAndIncrement()).append(":").append(imgUrlContent).append("\n");
+                } else {
+                    sb.append(line.getAndIncrement()).append(":").append(messageBroker.getContent()).append("\n");
+                }
+            });
+            return new TextBuilder().build(sb.toString(), wxMessage, weixinService);
+        } catch (NumberFormatException e) {
+            log.error("分页消息获取异常:{}", e.getMessage(), e);
+            return new TextBuilder().build("获取消息 请参考格式[list 页码 条数 关键词] \n例如 list 1 10 关键词 或者 list 1 10", wxMessage, weixinService);
         }
-        String keyword = "无".equals(split[3]) ? "" : split[3];
-        int count = messageBrokerDao.count(keyword, user.getId());
-        List<MessageBroker> messageBrokerList = messageBrokerDao.queryPage(pageNum, pageSize, keyword, user.getId());
-        StringBuffer sb = new StringBuffer();
-        sb.append(String.format("总条数：%d 总页数：%d",count,(int) Math.ceil((double) count / pageSize))).append("\n");
-        AtomicInteger line = new AtomicInteger(1);
-        messageBrokerList.stream()
-                .map(MessageBroker::getContent)
-                .forEach(text -> sb.append(line.getAndIncrement()).append(":").append(text).append("\n"));
-        return new TextBuilder().build(sb.toString(), wxMessage, weixinService);
     }
 
 
