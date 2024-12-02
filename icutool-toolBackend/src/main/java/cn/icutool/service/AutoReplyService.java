@@ -2,7 +2,7 @@ package cn.icutool.service;
 
 import cn.icutool.domain.AutoReply;
 import cn.icutool.domain.vo.request.AutoReplyReq;
-import cn.icutool.domain.vo.response.AjaxResult;
+import cn.icutool.common.domain.vo.response.AjaxResult;
 
 import java.util.List;
 

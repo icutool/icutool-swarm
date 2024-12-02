@@ -1,10 +1,9 @@
-package cn.icutool.domain.vo.response;
+package cn.icutool.common.domain.vo.response;
 
 
-import cn.icutool.constant.HttpStatus;
-import cn.icutool.domain.enums.RespBeanEnum;
-import cn.icutool.exception.BusinessException;
-import cn.icutool.utils.StringUtils;
+import cn.icutool.common.constant.HttpStatus;
+import cn.icutool.common.domain.enums.RespBeanEnum;
+import cn.icutool.common.utils.StringUtils;
 
 import java.util.HashMap;
 
@@ -130,18 +129,6 @@ public class AjaxResult extends HashMap<String, Object>
         return AjaxResult.error(msg, null);
     }
 
-
-    public static AjaxResult error(BusinessException e) {
-        // AjaxResult resultBean = new AjaxResult();
-        // if (e.getCode() == CustomExceptionType.USER_INPUT_ERROR.getCode()) {
-        //     return AjaxResult.error(e.getMessage(), null);
-        // } else if (e.getCode() == CustomExceptionType.SYSTEM_ERROR.getCode()) {
-        //     resultBean.setMessage(e.getMessage() + ",系统出现异常，请联系管理员，电话：xxxxx");
-        // } else {
-        //     resultBean.setMessage("系统出现未知异常，请联系管理员");
-        // }
-        return AjaxResult.error(e.getMessage(), null);
-    }
 
     /**
      * 返回错误消息

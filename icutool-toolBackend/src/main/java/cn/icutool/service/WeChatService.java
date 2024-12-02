@@ -1,7 +1,7 @@
 package cn.icutool.service;
 
 import cn.icutool.domain.vo.WxCaptchaVO;
-import cn.icutool.domain.vo.response.AjaxResult;
+import cn.icutool.common.domain.vo.response.AjaxResult;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;

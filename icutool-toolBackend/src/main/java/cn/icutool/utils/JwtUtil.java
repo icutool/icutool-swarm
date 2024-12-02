@@ -1,7 +1,6 @@
 package cn.icutool.utils;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.icutool.constant.ApplicationConst;
 import cn.icutool.domain.bo.UserJwtBO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;

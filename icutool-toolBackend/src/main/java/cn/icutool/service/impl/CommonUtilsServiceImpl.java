@@ -1,7 +1,7 @@
 package cn.icutool.service.impl;
 
 import cn.icutool.domain.dto.IpInfoDTO;
-import cn.icutool.domain.vo.response.AjaxResult;
+import cn.icutool.common.domain.vo.response.AjaxResult;
 import cn.icutool.service.CommonUtilsService;
 import lombok.extern.slf4j.Slf4j;
 import org.lionsoul.ip2region.xdb.Searcher;

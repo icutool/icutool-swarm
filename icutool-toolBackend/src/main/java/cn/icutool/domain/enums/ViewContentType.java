@@ -1,6 +1,6 @@
 package cn.icutool.domain.enums;
 
-import cn.icutool.utils.StringUtils;
+import cn.icutool.common.utils.StringUtils;
 
 public enum ViewContentType {
     DEFAULT("default","application/octet-stream"),

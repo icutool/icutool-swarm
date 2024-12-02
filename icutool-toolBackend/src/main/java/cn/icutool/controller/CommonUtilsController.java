@@ -1,11 +1,9 @@
 package cn.icutool.controller;
 
 import cn.icutool.domain.dto.IpInfoDTO;
-import cn.icutool.domain.vo.response.AjaxResult;
+import cn.icutool.common.domain.vo.response.AjaxResult;
 import cn.icutool.service.CommonUtilsService;
-import cn.icutool.service.impl.WebSocketServiceImpl;
 import com.alibaba.fastjson.JSON;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;

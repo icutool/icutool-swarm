@@ -1,0 +1,15 @@
+server:
+  port: ${push.server.port}
+  servlet:
+    context-path: /push
+spring:
+  kafka:
+    bootstrap-servers: ${kafka-url}
+    producer:
+      retries: 10
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: icutool-push
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer

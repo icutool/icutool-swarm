@@ -1,22 +1,19 @@
 package cn.icutool.service.impl;
 
 import cn.hutool.json.JSONUtil;
-import cn.icutool.constant.ApplicationConst;
 import cn.icutool.domain.bo.WSUserInfoBO;
 import cn.icutool.domain.entity.User;
 import cn.icutool.domain.enums.WSRespTypeEnum;
 import cn.icutool.domain.vo.WxCaptchaVO;
-import cn.icutool.domain.vo.response.AjaxResult;
+import cn.icutool.common.domain.vo.response.AjaxResult;
 import cn.icutool.domain.vo.response.WSBaseResp;
 import cn.icutool.domain.vo.ws.WSAuthorize;
 import cn.icutool.domain.vo.ws.WSBaseReq;
 import cn.icutool.service.LoginService;
-import cn.icutool.service.UserService;
 import cn.icutool.service.WeChatService;
 import cn.icutool.service.WebSocketService;
 import cn.icutool.service.adapter.WSAdapter;
 import cn.icutool.utils.JwtUtil;
-import cn.icutool.utils.SecurityUtils;
 import cn.icutool.websocket.NettyUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

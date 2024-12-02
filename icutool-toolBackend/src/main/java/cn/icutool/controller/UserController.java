@@ -5,7 +5,7 @@ import cn.icutool.domain.vo.WxCaptchaVO;
 import cn.icutool.domain.vo.request.MobileReq;
 import cn.icutool.domain.vo.request.UserRegisterReq;
 import cn.icutool.domain.vo.request.UserReq;
-import cn.icutool.domain.vo.response.AjaxResult;
+import cn.icutool.common.domain.vo.response.AjaxResult;
 import cn.icutool.service.LoginService;
 import cn.icutool.service.WeChatService;
 import io.swagger.annotations.Api;

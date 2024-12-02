@@ -1,6 +1,6 @@
 package cn.icutool.utils;
 
-import cn.icutool.constant.HttpStatus;
+import cn.icutool.common.constant.HttpStatus;
 import cn.icutool.domain.LoginUser;
 import cn.icutool.exception.UserException;
 import org.springframework.security.core.Authentication;

@@ -1,7 +1,7 @@
 package cn.icutool.exception;
 
-import cn.icutool.domain.enums.RespBeanEnum;
-import cn.icutool.domain.vo.response.AjaxResult;
+import cn.icutool.common.domain.enums.RespBeanEnum;
+import cn.icutool.common.domain.vo.response.AjaxResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDeniedException;

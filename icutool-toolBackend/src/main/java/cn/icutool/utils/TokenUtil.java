@@ -1,12 +1,11 @@
 package cn.icutool.utils;
 
-import cn.icutool.constant.RedisConst;
 import cn.icutool.dao.MenuDao;
 import cn.icutool.dao.UserDao;
 import cn.icutool.domain.LoginUser;
 import cn.icutool.domain.bo.UserJwtBO;
 import cn.icutool.domain.entity.User;
-import cn.icutool.domain.vo.response.AjaxResult;
+import cn.icutool.common.domain.vo.response.AjaxResult;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

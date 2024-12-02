@@ -1,4 +1,4 @@
-package cn.icutool.utils;
+package cn.icutool.common.utils;
 
 
 import org.apache.commons.lang3.RandomStringUtils;

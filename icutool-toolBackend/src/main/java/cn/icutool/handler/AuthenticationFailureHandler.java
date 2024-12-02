@@ -1,7 +1,7 @@
 package cn.icutool.handler;
 
-import cn.icutool.constant.HttpStatus;
-import cn.icutool.domain.vo.response.AjaxResult;
+import cn.icutool.common.constant.HttpStatus;
+import cn.icutool.common.domain.vo.response.AjaxResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;

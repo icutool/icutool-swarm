@@ -1,4 +1,4 @@
-package cn.icutool.domain.enums;
+package cn.icutool.common.domain.enums;
 
 /**
  * 公共返回对象枚举
