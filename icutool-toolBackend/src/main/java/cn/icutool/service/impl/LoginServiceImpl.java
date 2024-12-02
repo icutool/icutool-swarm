@@ -3,6 +3,7 @@ package cn.icutool.service.impl;
 import cn.hutool.core.lang.UUID;
 import cn.icutool.common.RequestHolder;
 import cn.icutool.common.annotation.FrequencyControl;
+import cn.icutool.constant.RedisConst;
 import cn.icutool.dao.UserDao;
 import cn.icutool.domain.LoginUser;
 import cn.icutool.domain.dto.IpInfoDTO;
