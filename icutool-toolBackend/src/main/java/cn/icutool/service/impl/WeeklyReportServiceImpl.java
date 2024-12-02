@@ -3,6 +3,7 @@ package cn.icutool.service.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.icutool.config.MinioConfiguration;
+import cn.icutool.constant.FilePathConst;
 import cn.icutool.dao.UserDao;
 import cn.icutool.dao.WeeklyReportDao;
 import cn.icutool.domain.bo.WeeklyReportExcelBO;

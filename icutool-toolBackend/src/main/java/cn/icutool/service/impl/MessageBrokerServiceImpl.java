@@ -3,6 +3,7 @@ package cn.icutool.service.impl;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.http.HttpUtil;
 import cn.icutool.config.MinioConfiguration;
+import cn.icutool.constant.MinioFilePathConst;
 import cn.icutool.domain.enums.MessageTypeEnum;
 import cn.icutool.dao.MessageBrokerDao;
 import cn.icutool.dao.UserDao;

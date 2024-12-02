@@ -1,6 +1,7 @@
 package cn.icutool.service.impl;
 
 import cn.icutool.config.WxMpProperties;
+import cn.icutool.constant.RedisConst;
 import cn.icutool.domain.vo.WxCaptchaVO;
 import cn.icutool.common.domain.vo.response.AjaxResult;
 import cn.icutool.service.WeChatService;

@@ -1,5 +1,6 @@
 package cn.icutool.utils;
 
+import cn.icutool.constant.RedisConst;
 import cn.icutool.dao.MenuDao;
 import cn.icutool.dao.UserDao;
 import cn.icutool.domain.LoginUser;

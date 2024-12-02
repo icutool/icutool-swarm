@@ -1,6 +1,7 @@
 package cn.icutool.service.impl;
 
 import cn.hutool.json.JSONUtil;
+import cn.icutool.constant.ApplicationConst;
 import cn.icutool.domain.bo.WSUserInfoBO;
 import cn.icutool.domain.entity.User;
 import cn.icutool.domain.enums.WSRespTypeEnum;

@@ -1,5 +1,6 @@
 package cn.icutool.filter;
 
+import cn.icutool.constant.RedisConst;
 import cn.icutool.domain.LoginUser;
 import cn.icutool.domain.entity.User;
 import cn.icutool.exception.UserException;
