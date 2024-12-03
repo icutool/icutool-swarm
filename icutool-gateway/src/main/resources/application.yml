@@ -1,5 +1,7 @@
 server:
   port: 10066
+  servlet:
+    context-path: /api
 spring:
   main:
     web-application-type: reactive
@@ -10,7 +12,11 @@ spring:
           uri: lb://icutool-push # 路由的目标地址
           predicates: # 路由断言，判断请求是否符合规则
             - Path=/push/** # 路径断言，判断路径是否是以/push开头，如果是则符合
+          filters:
+            - StripPrefix=1 # 去掉 /api 前缀，转发时路径变为 /push/**
         - id: backend
           uri: lb://backend
           predicates:
             - Path=/backend/**
+          filters:
+            - StripPrefix=1 # 去掉 /api 前缀，转发时路径变为 /backend/**
