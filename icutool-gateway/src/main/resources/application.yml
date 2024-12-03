@@ -1,0 +1,16 @@
+server:
+  port: 7002
+spring:
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      routes:
+        - id: icutool-push # 路由标示，必须唯一
+          uri: lb://icutool-push # 路由的目标地址
+          predicates: # 路由断言，判断请求是否符合规则
+            - Path=/push/** # 路径断言，判断路径是否是以/icutool-toolBackend开头，如果是则符合
+        - id: icutool-toolBackend
+          uri: lb://icutool-toolBackend
+          predicates:
+            - Path=/backend/**

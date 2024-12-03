@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: icutool-gateway
+  profiles:
+    #运行的环境
+    active: dev
