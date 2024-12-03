@@ -16,15 +16,13 @@ public class icutoolPushConsumer {
     }
 
     @KafkaListener(topics = "icutool-push-spider",groupId = "1")
-    public void spiderListen(ConsumerRecord<String, String> record){
-        log.info("spiderListen 收到key {}", record.key());
-        log.info("spiderListen 收到value {}", record.value());
-        platFormService.sendMsgToPlatForm(record.value());
+    public void spiderListen(String msg){
+        log.info("spiderListen 收到消息 {}", msg);
+        platFormService.sendMsgToPlatForm(msg);
     }
 
     @KafkaListener(topics = "icutool-push",groupId = "2")
-    public void listen2(ConsumerRecord<String, String> record){
-        System.out.println("listen2 收到key " + record.key());
-        System.out.println("listen2 收到value " + record.value());
+    public void listen2(String msg){
+        System.out.println("listen2 收到value " + msg);
     }
 }
