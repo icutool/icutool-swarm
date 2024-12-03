@@ -3,4 +3,4 @@ spring:
     name: icutool-push
   profiles:
     #运行的环境
-    active: dev
+    active: prod

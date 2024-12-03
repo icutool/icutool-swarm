@@ -15,13 +15,13 @@ public class icutoolPushConsumer {
         this.platFormService = platFormService;
     }
 
-    @KafkaListener(topics = "icutool-push-spider",groupId = "1")
+    @KafkaListener(topics = "icutool-push-spider")
     public void spiderListen(String msg){
         log.info("spiderListen 收到消息 {}", msg);
         platFormService.sendMsgToPlatForm(msg);
     }
 
-    @KafkaListener(topics = "icutool-push",groupId = "2")
+    @KafkaListener(topics = "icutool-push")
     public void listen2(String msg){
         System.out.println("listen2 收到value " + msg);
     }

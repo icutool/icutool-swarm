@@ -3,4 +3,4 @@ spring:
     name: backend
   profiles:
     #运行的环境
-    active: dev
+    active: prod
