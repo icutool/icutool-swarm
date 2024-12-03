@@ -146,7 +146,7 @@
     </dependencies>
 
     <build>
-        <finalName>icutool</finalName>
+        <finalName>icutool-toolBackend</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
