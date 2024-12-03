@@ -40,7 +40,7 @@ public class PlatFormServiceImpl implements PlatFormService {
         barkDto.setDevice_key(barkToken);
         pushByPost(barkUrl, JSON.toJSONString(barkDto),"Bark");
         MsgTypeAndContent msgTypeAndContent = new MsgTypeAndContent("text", barkDto.getBody());
-        ViewContent viewContent = new ViewContent("爬虫数据更新了!", Collections.singletonList(msgTypeAndContent));
+        ViewContent viewContent = new ViewContent(barkDto.getTitle(), Collections.singletonList(msgTypeAndContent));
         HashMap<String, ViewContent> viewMap = new HashMap<>();
         viewMap.put("zh_cn", viewContent);
         ContentBody contentBody = new ContentBody(viewMap);
