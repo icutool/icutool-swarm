@@ -40,7 +40,7 @@ public class PlatFormServiceImpl implements PlatFormService {
         barkDto.setDevice_key(barkToken);
         pushByPost(barkUrl, JSON.toJSONString(barkDto),"Bark");
         MsgTypeAndContent msgTypeAndContent = new MsgTypeAndContent("text", barkDto.getBody());
-        ViewContent viewContent = new ViewContent(barkDto.getTitle(), Collections.singletonList(msgTypeAndContent));
+        ViewContent viewContent = new ViewContent(barkDto.getTitle(), Collections.singletonList(Collections.singletonList(msgTypeAndContent)));
         HashMap<String, ViewContent> viewMap = new HashMap<>();
         viewMap.put("zh_cn", viewContent);
         ContentBody contentBody = new ContentBody(viewMap);
@@ -52,7 +52,7 @@ public class PlatFormServiceImpl implements PlatFormService {
         try (HttpResponse execute = HttpUtil.createPost(url).body(json).execute()) {
             String body = execute.body();
             JSONObject sendCallBack = JSONObject.parseObject(body);
-            if (sendCallBack.getInteger("code") == 200) {
+            if (sendCallBack.getInteger("code") == 200 || "success".equals(sendCallBack.getString("msg"))) {
                 log.info("发送{} Post通知成功 返回信息：{}", platform, body);
             } else {
                 log.error("发送{} 通知失败 返回信息：{}", platform, body);

@@ -16,7 +16,10 @@ public class icutoolPushConsumer {
     }
 
     @KafkaListener(topics = "icutool-push-spider")
-    public void spiderListen(String msg){
+    public void spiderListen(ConsumerRecord<String, String> record){
+        String key = record.key();
+        log.info("spiderListen 收到key {}", key);
+        String msg = record.value();
         log.info("spiderListen 收到消息 {}", msg);
         platFormService.sendMsgToPlatForm(msg);
     }

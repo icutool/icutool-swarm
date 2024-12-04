@@ -15,5 +15,5 @@ import java.util.List;
 @NoArgsConstructor
 public class ViewContent {
     private String title;
-    private List<MsgTypeAndContent> content;
+    private List<List<MsgTypeAndContent>> content;
 }
