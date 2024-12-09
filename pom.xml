@@ -13,6 +13,7 @@
         <module>icutool-push</module>
         <module>icutool-toolBackend</module>
         <module>icutool-gateway</module>
+        <module>icutool-monitor</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -25,6 +26,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
+        <spring-boot-admin.version>2.7.4</spring-boot-admin.version>
     </properties>
     <dependencies>
         <dependency>
@@ -75,6 +77,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
@@ -150,7 +157,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-security</artifactId>
-                <version>2.7.15</version>
+                <version>3.2.2</version>
             </dependency>
             <dependency>
                 <groupId>com.mysql</groupId>
