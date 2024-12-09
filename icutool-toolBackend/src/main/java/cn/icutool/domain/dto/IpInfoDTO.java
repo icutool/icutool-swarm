@@ -13,4 +13,5 @@ public class IpInfoDTO {
     private String province;
     private String city;
     private String isp;
+    private String ip;
 }

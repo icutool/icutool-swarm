@@ -1,5 +1,6 @@
 package cn.icutool.controller;
 
+import cn.hutool.extra.servlet.ServletUtil;
 import cn.icutool.domain.dto.IpInfoDTO;
 import cn.icutool.common.domain.vo.response.AjaxResult;
 import cn.icutool.service.CommonUtilsService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
 import java.util.HashMap;
 
@@ -34,11 +36,11 @@ public class CommonUtilsController {
         IpInfoDTO ipInfoDTO = commonUtilsService.searchIpInfo(ip);
         return AjaxResult.success(ipInfoDTO);
     }
-    @GetMapping("/send")
-    public AjaxResult send(@RequestParam @NotBlank String ip) {
-        HashMap<String, String> map = new HashMap<>();
-        map.put("ip",ip);
-        kafkaTemplate.send("icutool-push", JSON.toJSONString(map));
-        return AjaxResult.success();
+    @GetMapping("/myIP")
+    public AjaxResult send(HttpServletRequest request) {
+        String clientIP = ServletUtil.getClientIP(request);
+        IpInfoDTO ipInfoDTO = commonUtilsService.searchIpInfo(clientIP);
+        ipInfoDTO.setIp(clientIP);
+        return AjaxResult.success(ipInfoDTO);
     }
 }
