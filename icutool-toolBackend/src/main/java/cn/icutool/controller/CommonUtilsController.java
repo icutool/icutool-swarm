@@ -5,6 +5,7 @@ import cn.icutool.domain.dto.IpInfoDTO;
 import cn.icutool.common.domain.vo.response.AjaxResult;
 import cn.icutool.service.CommonUtilsService;
 import com.alibaba.fastjson.JSON;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,10 +38,13 @@ public class CommonUtilsController {
         return AjaxResult.success(ipInfoDTO);
     }
     @GetMapping("/myIP")
-    public AjaxResult send(HttpServletRequest request) {
+    public AjaxResult checkMyIP(HttpServletRequest request) {
         String clientIP = ServletUtil.getClientIP(request);
-        IpInfoDTO ipInfoDTO = commonUtilsService.searchIpInfo(clientIP);
-        ipInfoDTO.setIp(clientIP);
-        return AjaxResult.success(ipInfoDTO);
+        if (StringUtils.isNotEmpty(clientIP)){
+            IpInfoDTO ipInfoDTO = commonUtilsService.searchIpInfo(clientIP);
+            ipInfoDTO.setIp(clientIP);
+            return AjaxResult.success(ipInfoDTO);
+        }
+        return AjaxResult.error("获取IP失败");
     }
 }
