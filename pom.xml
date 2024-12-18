@@ -13,7 +13,6 @@
         <module>icutool-push</module>
         <module>icutool-toolBackend</module>
         <module>icutool-gateway</module>
-        <module>icutool-monitor</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

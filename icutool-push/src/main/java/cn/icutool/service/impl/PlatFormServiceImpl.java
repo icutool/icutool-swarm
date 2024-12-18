@@ -46,6 +46,10 @@ public class PlatFormServiceImpl implements PlatFormService {
     @Override
     public void sendMsgToPlatForm(String msg) {
         BarkDto barkDto = JSON.parseObject(msg, BarkDto.class);
+        senMsg(barkDto);
+    }
+
+    private void senMsg(BarkDto barkDto) {
         barkDto.setDevice_key(barkToken);
         MsgTypeAndContent msgTypeAndContent = new MsgTypeAndContent("text", barkDto.getBody());
         ViewContent viewContent = new ViewContent(barkDto.getTitle(), Collections.singletonList(Collections.singletonList(msgTypeAndContent)));
@@ -55,6 +59,11 @@ public class PlatFormServiceImpl implements PlatFormService {
         FlyBookDto flyBookDto = new FlyBookDto("post", contentBody);
         pushByPost(barkUrl, JSON.toJSONString(barkDto),"Bark");
         pushByPost(flyBookUrl, JSON.toJSONString(flyBookDto),"飞书");
+    }
+
+    @Override
+    public void sendMsgToPlatForm(BarkDto barkDto) {
+        senMsg(barkDto);
     }
 
     private void pushByPost(String url, String json, String platform) {
