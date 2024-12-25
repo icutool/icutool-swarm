@@ -7,10 +7,7 @@ import cn.icutool.domain.vo.req.Markdown;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -25,6 +22,14 @@ public class CommonPushController {
     @PostMapping("/push")
     public AjaxResult push(@RequestBody HashMap<String, String> params) {
         log.info("dingWebhookVo = {}" , JSON.toJSONString(params));
+        return AjaxResult.success();
+    }
+
+    @GetMapping("/pushGet")
+    public AjaxResult pushGet(@RequestParam String title,
+                              @RequestParam String body,
+                              @RequestParam String copyStr) {
+        log.info("title={} body={} copyStr={}" , title, body, copyStr);
         return AjaxResult.success();
     }
 }
