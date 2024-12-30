@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.icutool.dao.BlogArticleTagsDao">
+<mapper namespace="cn.icutool.mapper.BlogArticleTagsMapper">
 
-    <resultMap type="cn.icutool.entity.BlogArticleTags" id="BlogArticleTagsMap">
+    <resultMap type="cn.icutool.domain.entity.BlogArticleTags" id="BlogArticleTagsMap">
         <result property="articleId" column="article_id" jdbcType="INTEGER"/>
         <result property="tagId" column="tag_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="tagResultMap" type="cn.icutool.domain.dto.BlogTagDTO">
+        <id property="articleId" column="article_id" />
+        <result property="tagName" column="tag_name" />
     </resultMap>
 
     <!--查询单个-->
@@ -89,5 +94,20 @@
         delete from blog_article_tags where article_id = #{articleId}
     </delete>
 
+    <!-- 查询文章的标签 -->
+    <select id="getTagsForArticles" resultMap="tagResultMap">
+        SELECT
+        at.article_id,
+        t.name AS tag_name
+        FROM
+        blog_article_tags at
+        LEFT JOIN
+        blog_tags t ON at.tag_id = t.id
+        WHERE
+        at.article_id IN
+        <foreach collection="articleIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>;
+    </select>
 </mapper>
 

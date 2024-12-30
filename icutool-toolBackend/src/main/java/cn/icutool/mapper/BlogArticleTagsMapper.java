@@ -1,8 +1,11 @@
-package cn.icutool.dao;
+package cn.icutool.mapper;
 
-import cn.icutool.entity.BlogArticleTags;
+import cn.icutool.domain.dto.BlogTagDTO;
+import cn.icutool.domain.entity.BlogArticleTags;
+import cn.icutool.domain.entity.BlogTags;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 /**
@@ -11,7 +14,7 @@ import java.util.List;
  * @author icutool
  * @since 2024-12-29 22:14:39
  */
-public interface BlogArticleTagsDao {
+public interface BlogArticleTagsMapper {
 
     /**
      * 通过ID查询单条数据
@@ -78,6 +81,13 @@ public interface BlogArticleTagsDao {
      * @return 影响行数
      */
     int deleteById(Long articleId);
+
+    /**
+     * 通过文章ids查询标签
+     * @param articleIds
+     * @return
+     */
+    List<BlogTagDTO> getTagsForArticles(@Param("articleIds") List<Long> articleIds);
 
 }
 

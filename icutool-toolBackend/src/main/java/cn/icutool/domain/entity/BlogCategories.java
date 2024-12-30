@@ -1,21 +1,21 @@
-package cn.icutool.entity;
+package cn.icutool.domain.entity;
 
 import java.io.Serializable;
 
 /**
- * 存储标签(BlogTags)实体类
+ * 存储文章分类(BlogCategories)实体类
  *
  * @author icutool
- * @since 2024-12-29 22:14:19
+ * @since 2024-12-29 22:13:58
  */
-public class BlogTags implements Serializable {
-    private static final long serialVersionUID = 402357844069238190L;
+public class BlogCategories implements Serializable {
+    private static final long serialVersionUID = 845769511351034759L;
 /**
-     * 标签ID
+     * 分类ID
      */
     private Long id;
 /**
-     * 标签名称
+     * 分类名称
      */
     private String name;
 

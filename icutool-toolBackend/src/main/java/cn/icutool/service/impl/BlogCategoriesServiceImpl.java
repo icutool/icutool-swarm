@@ -1,14 +1,12 @@
 package cn.icutool.service.impl;
 
-import cn.icutool.entity.BlogCategories;
-import cn.icutool.dao.BlogCategoriesDao;
+import cn.icutool.domain.entity.BlogCategories;
+import cn.icutool.mapper.BlogCategoriesMapper;
 import cn.icutool.service.BlogCategoriesService;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-
-import javax.annotation.Resource;
 
 /**
  * 存储文章分类(BlogCategories)表服务实现类
@@ -18,8 +16,11 @@ import javax.annotation.Resource;
  */
 @Service("blogCategoriesService")
 public class BlogCategoriesServiceImpl implements BlogCategoriesService {
-    @Resource
-    private BlogCategoriesDao blogCategoriesDao;
+    private final BlogCategoriesMapper blogCategoriesMapper;
+
+    public BlogCategoriesServiceImpl(BlogCategoriesMapper blogCategoriesMapper) {
+        this.blogCategoriesMapper = blogCategoriesMapper;
+    }
 
     /**
      * 通过ID查询单条数据
@@ -29,7 +30,7 @@ public class BlogCategoriesServiceImpl implements BlogCategoriesService {
      */
     @Override
     public BlogCategories queryById(Long id) {
-        return this.blogCategoriesDao.queryById(id);
+        return this.blogCategoriesMapper.queryById(id);
     }
 
     /**
@@ -41,8 +42,8 @@ public class BlogCategoriesServiceImpl implements BlogCategoriesService {
      */
     @Override
     public Page<BlogCategories> queryByPage(BlogCategories blogCategories, PageRequest pageRequest) {
-        long total = this.blogCategoriesDao.count(blogCategories);
-        return new PageImpl<>(this.blogCategoriesDao.queryAllByLimit(blogCategories, pageRequest), pageRequest, total);
+        long total = this.blogCategoriesMapper.count(blogCategories);
+        return new PageImpl<>(this.blogCategoriesMapper.queryAllByLimit(blogCategories, pageRequest), pageRequest, total);
     }
 
     /**
@@ -53,7 +54,7 @@ public class BlogCategoriesServiceImpl implements BlogCategoriesService {
      */
     @Override
     public BlogCategories insert(BlogCategories blogCategories) {
-        this.blogCategoriesDao.insert(blogCategories);
+        this.blogCategoriesMapper.insert(blogCategories);
         return blogCategories;
     }
 
@@ -65,7 +66,7 @@ public class BlogCategoriesServiceImpl implements BlogCategoriesService {
      */
     @Override
     public BlogCategories update(BlogCategories blogCategories) {
-        this.blogCategoriesDao.update(blogCategories);
+        this.blogCategoriesMapper.update(blogCategories);
         return this.queryById(blogCategories.getId());
     }
 
@@ -77,6 +78,6 @@ public class BlogCategoriesServiceImpl implements BlogCategoriesService {
      */
     @Override
     public boolean deleteById(Long id) {
-        return this.blogCategoriesDao.deleteById(id) > 0;
+        return this.blogCategoriesMapper.deleteById(id) > 0;
     }
 }

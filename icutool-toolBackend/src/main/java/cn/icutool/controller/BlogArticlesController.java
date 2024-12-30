@@ -1,14 +1,16 @@
 package cn.icutool.controller;
 
 import cn.icutool.common.domain.vo.response.AjaxResult;
-import cn.icutool.entity.BlogArticles;
+import cn.icutool.domain.entity.BlogArticles;
 import cn.icutool.service.BlogArticlesService;
-import org.springframework.data.domain.Page;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
 
 /**
  * 存储文章的主要信息(BlogArticles)表控制层
@@ -29,15 +31,19 @@ public class BlogArticlesController {
     }
 
     /**
-     * 分页查询
-     *
-     * @param blogArticles 筛选条件
-     * @param pageRequest      分页对象
-     * @return 查询结果
+     * 分页接口
      */
+    @ApiOperation("消息分页接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "页码"),
+            @ApiImplicitParam(name = "pageSize", value = "页大小"),
+            @ApiImplicitParam(name = "keyword", value = "关键词")
+    })
     @GetMapping("/page")
-    public AjaxResult queryByPage(BlogArticles blogArticles, PageRequest pageRequest) {
-        return AjaxResult.success(this.blogArticlesService.queryByPage(blogArticles, pageRequest));
+    public AjaxResult page(@RequestParam(defaultValue = "1") Integer pageNum,
+                           @Valid @Max(value = 30, message = "页大小最大30") @RequestParam(defaultValue = "10") Integer pageSize,
+                           @RequestParam(required = false) String keyword){
+        return AjaxResult.success(this.blogArticlesService.queryByPage(keyword, pageNum, pageSize));
     }
 
     /**

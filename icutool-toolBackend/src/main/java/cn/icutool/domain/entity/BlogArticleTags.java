@@ -1,4 +1,4 @@
-package cn.icutool.entity;
+package cn.icutool.domain.entity;
 
 import java.io.Serializable;
 

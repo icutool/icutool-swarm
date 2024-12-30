@@ -1,6 +1,6 @@
 package cn.icutool.service;
 
-import cn.icutool.entity.BlogArticleTags;
+import cn.icutool.domain.entity.BlogArticleTags;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 

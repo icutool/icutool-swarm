@@ -1,4 +1,4 @@
-package cn.icutool.entity;
+package cn.icutool.domain.entity;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -11,31 +11,31 @@ import java.io.Serializable;
  */
 public class BlogArticles implements Serializable {
     private static final long serialVersionUID = 703876419950159291L;
-/**
+    /**
      * 文章ID
      */
     private Long id;
-/**
+    /**
      * 文章标题
      */
     private String title;
-/**
+    /**
      * 作者ID（外键）
      */
     private Long authorUid;
-/**
+    /**
      * 分类ID（外键）
      */
     private Long categoryId;
-/**
+    /**
      * 文章内容
      */
     private String content;
-/**
+    /**
      * 创建时间
      */
     private Date createdAt;
-/**
+    /**
      * 更新时间
      */
     private Date updatedAt;

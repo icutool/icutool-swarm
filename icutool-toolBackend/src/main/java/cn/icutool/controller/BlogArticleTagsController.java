@@ -1,14 +1,10 @@
 package cn.icutool.controller;
 
 import cn.icutool.common.domain.vo.response.AjaxResult;
-import cn.icutool.entity.BlogArticleTags;
+import cn.icutool.domain.entity.BlogArticleTags;
 import cn.icutool.service.BlogArticleTagsService;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
 
 /**
  * 文章与标签的多对多关系(BlogArticleTags)表控制层

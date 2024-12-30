@@ -1,6 +1,9 @@
 package cn.icutool.service;
 
-import cn.icutool.entity.BlogArticles;
+import cn.icutool.domain.dto.BlogArticlesDTO;
+import cn.icutool.domain.dto.BlogDTO;
+import cn.icutool.domain.dto.PageDTO;
+import cn.icutool.domain.entity.BlogArticles;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -21,13 +24,22 @@ public interface BlogArticlesService {
     BlogArticles queryById(Long id);
 
     /**
+     * 通过ID查询单条页面所需数据
+     *
+     * @param id 主键
+     * @return 实例对象
+     */
+    BlogArticlesDTO queryDetailById(Long id);
+
+    /**
      * 分页查询
      *
-     * @param blogArticles 筛选条件
-     * @param pageRequest      分页对象
+     * @param keyword 筛选条件
+     * @param pageNum      页码
+     * @param pageSize      页大小
      * @return 查询结果
      */
-    Page<BlogArticles> queryByPage(BlogArticles blogArticles, PageRequest pageRequest);
+    PageDTO<BlogDTO> queryByPage(String keyword, Integer pageNum, Integer pageSize);
 
     /**
      * 新增数据

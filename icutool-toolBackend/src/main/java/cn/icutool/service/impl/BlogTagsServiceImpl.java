@@ -1,14 +1,12 @@
 package cn.icutool.service.impl;
 
-import cn.icutool.entity.BlogTags;
-import cn.icutool.dao.BlogTagsDao;
+import cn.icutool.domain.entity.BlogTags;
+import cn.icutool.mapper.BlogTagsMapper;
 import cn.icutool.service.BlogTagsService;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-
-import javax.annotation.Resource;
 
 /**
  * 存储标签(BlogTags)表服务实现类
@@ -18,8 +16,11 @@ import javax.annotation.Resource;
  */
 @Service("blogTagsService")
 public class BlogTagsServiceImpl implements BlogTagsService {
-    @Resource
-    private BlogTagsDao blogTagsDao;
+    private final BlogTagsMapper blogTagsMapper;
+
+    public BlogTagsServiceImpl(BlogTagsMapper blogTagsMapper) {
+        this.blogTagsMapper = blogTagsMapper;
+    }
 
     /**
      * 通过ID查询单条数据
@@ -29,7 +30,7 @@ public class BlogTagsServiceImpl implements BlogTagsService {
      */
     @Override
     public BlogTags queryById(Long id) {
-        return this.blogTagsDao.queryById(id);
+        return this.blogTagsMapper.queryById(id);
     }
 
     /**
@@ -41,8 +42,8 @@ public class BlogTagsServiceImpl implements BlogTagsService {
      */
     @Override
     public Page<BlogTags> queryByPage(BlogTags blogTags, PageRequest pageRequest) {
-        long total = this.blogTagsDao.count(blogTags);
-        return new PageImpl<>(this.blogTagsDao.queryAllByLimit(blogTags, pageRequest), pageRequest, total);
+        long total = this.blogTagsMapper.count(blogTags);
+        return new PageImpl<>(this.blogTagsMapper.queryAllByLimit(blogTags, pageRequest), pageRequest, total);
     }
 
     /**
@@ -53,7 +54,7 @@ public class BlogTagsServiceImpl implements BlogTagsService {
      */
     @Override
     public BlogTags insert(BlogTags blogTags) {
-        this.blogTagsDao.insert(blogTags);
+        this.blogTagsMapper.insert(blogTags);
         return blogTags;
     }
 
@@ -65,7 +66,7 @@ public class BlogTagsServiceImpl implements BlogTagsService {
      */
     @Override
     public BlogTags update(BlogTags blogTags) {
-        this.blogTagsDao.update(blogTags);
+        this.blogTagsMapper.update(blogTags);
         return this.queryById(blogTags.getId());
     }
 
@@ -77,6 +78,6 @@ public class BlogTagsServiceImpl implements BlogTagsService {
      */
     @Override
     public boolean deleteById(Long id) {
-        return this.blogTagsDao.deleteById(id) > 0;
+        return this.blogTagsMapper.deleteById(id) > 0;
     }
 }

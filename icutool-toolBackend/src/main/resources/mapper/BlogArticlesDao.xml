@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.icutool.dao.BlogArticlesDao">
+<mapper namespace="cn.icutool.mapper.BlogArticlesMapper">
 
-    <resultMap type="cn.icutool.entity.BlogArticles" id="BlogArticlesMap">
+    <resultMap type="cn.icutool.domain.entity.BlogArticles" id="BlogArticlesMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="authorUid" column="author_uid" jdbcType="INTEGER"/>
@@ -10,6 +10,20 @@
         <result property="content" column="content" jdbcType="VARCHAR"/>
         <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
         <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="articleResultMap" type="cn.icutool.domain.dto.BlogDTO">
+        <id property="id" column="article_id" />
+        <result property="title" column="article_title" />
+        <result property="authorName" column="author_Name" />
+        <result property="content" column="article_content" />
+        <result property="createdAt" column="article_created_at" />
+        <result property="updatedAt" column="article_updated_at" />
+        <result property="category" column="category_name" />
+        <collection property="tags" ofType="cn.icutool.domain.entity.BlogTags">
+            <id property="id" column="tag_id" />
+            <result property="name" column="tag_name" />
+        </collection>
     </resultMap>
 
     <!--查询单个-->
@@ -26,26 +40,26 @@
         id, title, author_uid, category_id, content, created_at, updated_at
         from blog_articles
         <where>
-            <if test="id != null">
-                and id = #{id}
+            <if test="blogArticles.id != null">
+                and id = #{blogArticles.id}
             </if>
-            <if test="title != null and title != ''">
-                and title = #{title}
+            <if test="blogArticles.title != null and blogArticles.title != ''">
+                and title = #{blogArticles.title}
             </if>
-            <if test="authorUid != null">
-                and author_uid = #{authorUid}
+            <if test="blogArticles.authorUid != null">
+                and author_uid = #{blogArticles.authorUid}
             </if>
-            <if test="categoryId != null">
-                and category_id = #{categoryId}
+            <if test="blogArticles.categoryId != null">
+                and category_id = #{blogArticles.categoryId}
             </if>
-            <if test="content != null and content != ''">
-                and content = #{content}
+            <if test="blogArticles.content != null and blogArticles.content != ''">
+                and content = #{blogArticles.content}
             </if>
-            <if test="createdAt != null">
-                and created_at = #{createdAt}
+            <if test="blogArticles.createdAt != null">
+                and created_at = #{blogArticles.createdAt}
             </if>
-            <if test="updatedAt != null">
-                and updated_at = #{updatedAt}
+            <if test="blogArticles.updatedAt != null">
+                and updated_at = #{blogArticles.updatedAt}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -56,26 +70,8 @@
         select count(1)
         from blog_articles
         <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="title != null and title != ''">
-                and title = #{title}
-            </if>
-            <if test="authorUid != null">
-                and author_uid = #{authorUid}
-            </if>
-            <if test="categoryId != null">
-                and category_id = #{categoryId}
-            </if>
-            <if test="content != null and content != ''">
-                and content = #{content}
-            </if>
-            <if test="createdAt != null">
-                and created_at = #{createdAt}
-            </if>
-            <if test="updatedAt != null">
-                and updated_at = #{updatedAt}
+            <if test="keyword != null and keyword != ''">
+                and title like CONCAT('%',#{keyword},'%')
             </if>
         </where>
     </select>
@@ -140,5 +136,54 @@
         delete from blog_articles where id = #{id}
     </delete>
 
+    <select id="queryOne" resultMap="articleResultMap">
+        SELECT
+        a.id AS article_id,
+        su.nick_name AS author_Name,
+        a.title AS article_title,
+        a.content AS article_content,
+        c.id AS category_id,
+        c.name AS category_name,
+        t.id AS tag_id,
+        t.name AS tag_name,
+        a.created_at AS article_created_at,
+        a.updated_at AS article_updated_at
+        FROM
+        blog_articles a
+        LEFT JOIN
+        blog_categories c ON a.category_id = c.id
+        LEFT JOIN
+        blog_article_tags at ON a.id = at.article_id
+        LEFT JOIN
+        blog_tags t ON at.tag_id = t.id
+        LEFT JOIN
+        sys_user su ON a.author_uid = su.id
+        where id=#{id}
+    </select>
+
+    <select id="queryPageByLimit" resultMap="articleResultMap">
+        SELECT
+        a.id AS article_id,
+        su.nick_name AS author_Name,
+        a.title AS article_title,
+        a.content AS article_content,
+        c.id AS category_id,
+        c.name AS category_name,
+        a.created_at AS article_created_at,
+        a.updated_at AS article_updated_at
+        FROM
+        blog_articles a
+        LEFT JOIN
+        blog_categories c ON a.category_id = c.id
+        LEFT JOIN
+        sys_user su ON a.author_uid = su.id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and title like CONCAT('%',#{keyword},'%')
+            </if>
+        </where>
+        order by a.id desc
+        limit #{pageNum},#{pageSize}
+    </select>
 </mapper>
 

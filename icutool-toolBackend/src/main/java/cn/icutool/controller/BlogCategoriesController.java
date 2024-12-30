@@ -1,14 +1,10 @@
 package cn.icutool.controller;
 
 import cn.icutool.common.domain.vo.response.AjaxResult;
-import cn.icutool.entity.BlogCategories;
+import cn.icutool.domain.entity.BlogCategories;
 import cn.icutool.service.BlogCategoriesService;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
 
 /**
  * 存储文章分类(BlogCategories)表控制层

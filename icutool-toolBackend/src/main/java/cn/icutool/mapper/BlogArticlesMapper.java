@@ -1,8 +1,11 @@
-package cn.icutool.dao;
+package cn.icutool.mapper;
 
-import cn.icutool.entity.BlogArticles;
+import cn.icutool.domain.dto.BlogDTO;
+import cn.icutool.domain.entity.BlogArticles;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 /**
@@ -11,7 +14,7 @@ import java.util.List;
  * @author icutool
  * @since 2024-12-29 22:13:35
  */
-public interface BlogArticlesDao {
+public interface BlogArticlesMapper {
 
     /**
      * 通过ID查询单条数据
@@ -28,15 +31,17 @@ public interface BlogArticlesDao {
      * @param pageable         分页对象
      * @return 对象列表
      */
-    List<BlogArticles> queryAllByLimit(BlogArticles blogArticles, @Param("pageable") Pageable pageable);
+    List<BlogArticles> queryAllByLimit(@Param("blogArticles") BlogArticles blogArticles, @Param("pageable") Pageable pageable);
+
+    BlogDTO queryOne(Long id);
 
     /**
      * 统计总行数
      *
-     * @param blogArticles 查询条件
+     * @param keyword 查询条件
      * @return 总行数
      */
-    long count(BlogArticles blogArticles);
+    long count(@Param("keyword") String keyword);
 
     /**
      * 新增数据
@@ -79,5 +84,6 @@ public interface BlogArticlesDao {
      */
     int deleteById(Long id);
 
+    List<BlogDTO> queryPageByLimit(@Param("keyword") String keyword, @Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 }
 
