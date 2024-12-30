@@ -1,5 +1,6 @@
 package cn.icutool.mapper;
 
+import cn.icutool.domain.dto.ArticleSwitch;
 import cn.icutool.domain.dto.BlogDTO;
 import cn.icutool.domain.entity.BlogArticles;
 import org.apache.ibatis.annotations.Param;
@@ -85,5 +86,9 @@ public interface BlogArticlesMapper {
     int deleteById(Long id);
 
     List<BlogDTO> queryPageByLimit(@Param("keyword") String keyword, @Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
+
+    ArticleSwitch selectPrev(Long id);
+
+    ArticleSwitch selectNext(Long id);
 }
 

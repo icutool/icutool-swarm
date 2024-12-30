@@ -54,7 +54,7 @@ public class BlogArticlesController {
      */
     @GetMapping("/detail/{id}")
     public AjaxResult queryById(@PathVariable("id") Long id) {
-        return AjaxResult.success(this.blogArticlesService.queryById(id));
+        return AjaxResult.success(this.blogArticlesService.queryDetailById(id));
     }
 
     /**

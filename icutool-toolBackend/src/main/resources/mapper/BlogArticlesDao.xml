@@ -20,8 +20,7 @@
         <result property="createdAt" column="article_created_at" />
         <result property="updatedAt" column="article_updated_at" />
         <result property="category" column="category_name" />
-        <collection property="tags" ofType="cn.icutool.domain.entity.BlogTags">
-            <id property="id" column="tag_id" />
+        <collection property="tags" ofType="list">
             <result property="name" column="tag_name" />
         </collection>
     </resultMap>
@@ -158,7 +157,7 @@
         blog_tags t ON at.tag_id = t.id
         LEFT JOIN
         sys_user su ON a.author_uid = su.id
-        where id=#{id}
+        where a.id=#{id}
     </select>
 
     <select id="queryPageByLimit" resultMap="articleResultMap">
@@ -184,6 +183,14 @@
         </where>
         order by a.id desc
         limit #{pageNum},#{pageSize}
+    </select>
+
+    <select id="selectNext" resultType="cn.icutool.domain.dto.ArticleSwitch">
+        select id,title from blog_articles where id > #{id} order by id asc limit 1
+    </select>
+
+    <select id="selectPrev" resultType="cn.icutool.domain.dto.ArticleSwitch">
+        select id,title from blog_articles where id &lt; #{id} order by id desc limit 1
     </select>
 </mapper>
 

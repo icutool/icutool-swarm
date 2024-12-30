@@ -1,9 +1,6 @@
 package cn.icutool.service.impl;
 
-import cn.icutool.domain.dto.BlogArticlesDTO;
-import cn.icutool.domain.dto.BlogDTO;
-import cn.icutool.domain.dto.BlogTagDTO;
-import cn.icutool.domain.dto.PageDTO;
+import cn.icutool.domain.dto.*;
 import cn.icutool.domain.entity.BlogArticles;
 import cn.icutool.mapper.BlogArticleTagsMapper;
 import cn.icutool.mapper.BlogArticlesMapper;
@@ -49,6 +46,10 @@ public class BlogArticlesServiceImpl implements BlogArticlesService {
         // 查询上一条和下一条
         BlogArticlesDTO blogArticlesDTO = new BlogArticlesDTO();
         blogArticlesDTO.setArticle(article);
+        ArticleSwitch prev = blogArticlesMapper.selectPrev(id);
+        ArticleSwitch next = blogArticlesMapper.selectNext(id);
+        blogArticlesDTO.setPrev(prev);
+        blogArticlesDTO.setNext(next);
         return blogArticlesDTO;
     }
 

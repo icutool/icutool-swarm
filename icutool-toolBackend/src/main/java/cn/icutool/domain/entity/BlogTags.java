@@ -1,5 +1,8 @@
 package cn.icutool.domain.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +11,8 @@ import java.io.Serializable;
  * @author icutool
  * @since 2024-12-29 22:14:19
  */
+@AllArgsConstructor
+@NoArgsConstructor
 public class BlogTags implements Serializable {
     private static final long serialVersionUID = 402357844069238190L;
     /**
