@@ -43,11 +43,13 @@ public class BlogArticlesServiceImpl implements BlogArticlesService {
     @Override
     public BlogArticlesDTO queryDetailById(Long id) {
         BlogDTO article = blogArticlesMapper.queryOne(id);
+        String body = IStringUtil.removeHtmlTags(article.getContent());
+        article.setExcerpt(body.length() > 100 ? body.substring(0, 100) + "..." : body);
         // 查询上一条和下一条
         BlogArticlesDTO blogArticlesDTO = new BlogArticlesDTO();
         blogArticlesDTO.setArticle(article);
-        ArticleSwitch prev = blogArticlesMapper.selectPrev(id);
-        ArticleSwitch next = blogArticlesMapper.selectNext(id);
+        ArticleSwitch prev = blogArticlesMapper.selectPrev(article.getCreatedAt());
+        ArticleSwitch next = blogArticlesMapper.selectNext(article.getCreatedAt());
         blogArticlesDTO.setPrev(prev);
         blogArticlesDTO.setNext(next);
         return blogArticlesDTO;

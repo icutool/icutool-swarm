@@ -20,10 +20,25 @@
         <result property="createdAt" column="article_created_at" />
         <result property="updatedAt" column="article_updated_at" />
         <result property="category" column="category_name" />
-        <collection property="tags" ofType="list">
-            <result property="name" column="tag_name" />
-        </collection>
+        <collection property="tags" ofType="java.lang.String" select="queryTagsByArticleId" column="article_id" />
     </resultMap>
+
+    <resultMap id="articlePageResultMap" type="cn.icutool.domain.dto.BlogDTO">
+        <id property="id" column="article_id" />
+        <result property="title" column="article_title" />
+        <result property="authorName" column="author_Name" />
+        <result property="content" column="article_content" />
+        <result property="createdAt" column="article_created_at" />
+        <result property="updatedAt" column="article_updated_at" />
+        <result property="category" column="category_name" />
+    </resultMap>
+
+    <select id="queryTagsByArticleId" resultType="java.lang.String">
+        SELECT t.name
+        FROM blog_article_tags at
+        LEFT JOIN blog_tags t ON at.tag_id = t.id
+        WHERE at.article_id = #{articleId}
+    </select>
 
     <!--查询单个-->
     <select id="queryById" resultMap="BlogArticlesMap">
@@ -143,8 +158,6 @@
         a.content AS article_content,
         c.id AS category_id,
         c.name AS category_name,
-        t.id AS tag_id,
-        t.name AS tag_name,
         a.created_at AS article_created_at,
         a.updated_at AS article_updated_at
         FROM
@@ -152,15 +165,11 @@
         LEFT JOIN
         blog_categories c ON a.category_id = c.id
         LEFT JOIN
-        blog_article_tags at ON a.id = at.article_id
-        LEFT JOIN
-        blog_tags t ON at.tag_id = t.id
-        LEFT JOIN
         sys_user su ON a.author_uid = su.id
-        where a.id=#{id}
+        WHERE a.id = #{id}
     </select>
 
-    <select id="queryPageByLimit" resultMap="articleResultMap">
+    <select id="queryPageByLimit" resultMap="articlePageResultMap">
         SELECT
         a.id AS article_id,
         su.nick_name AS author_Name,
@@ -181,16 +190,16 @@
                 and title like CONCAT('%',#{keyword},'%')
             </if>
         </where>
-        order by a.id desc
+        order by a.created_at desc
         limit #{pageNum},#{pageSize}
     </select>
 
     <select id="selectNext" resultType="cn.icutool.domain.dto.ArticleSwitch">
-        select id,title from blog_articles where id > #{id} order by id asc limit 1
+        select id,title from blog_articles where created_at &lt; #{time} order by created_at desc limit 1
     </select>
 
     <select id="selectPrev" resultType="cn.icutool.domain.dto.ArticleSwitch">
-        select id,title from blog_articles where id &lt; #{id} order by id desc limit 1
+        select id,title from blog_articles where created_at > #{time} order by created_at asc limit 1
     </select>
 </mapper>
 

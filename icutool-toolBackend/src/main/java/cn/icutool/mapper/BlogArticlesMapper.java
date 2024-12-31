@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -87,8 +88,8 @@ public interface BlogArticlesMapper {
 
     List<BlogDTO> queryPageByLimit(@Param("keyword") String keyword, @Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
-    ArticleSwitch selectPrev(Long id);
+    ArticleSwitch selectPrev(Date time);
 
-    ArticleSwitch selectNext(Long id);
+    ArticleSwitch selectNext(Date time);
 }
 
