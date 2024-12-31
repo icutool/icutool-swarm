@@ -14,4 +14,13 @@ public class IpInfoDTO {
     private String city;
     private String isp;
     private String ip;
+
+    public void setAll(String text) {
+        this.setCountry(text);
+        this.setRegion(text);
+        this.setProvince(text);
+        this.setCity(text);
+        this.setIsp(text);
+        this.setIp(text);
+    }
 }

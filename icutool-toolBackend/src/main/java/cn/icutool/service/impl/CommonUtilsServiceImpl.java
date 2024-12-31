@@ -6,6 +6,9 @@ import cn.icutool.service.CommonUtilsService;
 import lombok.extern.slf4j.Slf4j;
 import org.lionsoul.ip2region.xdb.Searcher;
 import org.springframework.stereotype.Service;
+
+import static cn.icutool.utils.IStringUtil.isIP;
+
 @Slf4j
 @Service
 public class CommonUtilsServiceImpl implements CommonUtilsService {
@@ -19,6 +22,10 @@ public class CommonUtilsServiceImpl implements CommonUtilsService {
     @Override
     public IpInfoDTO searchIpInfo(String ip) {
         IpInfoDTO ipInfoDTO = new IpInfoDTO();
+        if (!isIP(ip)) {
+            ipInfoDTO.setAll("非法IP");
+            return ipInfoDTO;
+        }
         String region = null;
         try {
             region = searcher.search(ip);
